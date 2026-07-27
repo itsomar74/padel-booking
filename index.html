@@ -51,6 +51,18 @@
   .msg.ok { background: #052e16; color: #4ade80; display: block; }
   .msg.err { background: #450a0a; color: #f87171; display: block; }
   .loading { color: #94a3b8; font-size: 14px; }
+  .wa-btn {
+    display: block;
+    text-align: center;
+    text-decoration: none;
+    margin-top: 12px;
+    padding: 14px;
+    border-radius: 10px;
+    background: #25D366;
+    color: #052e16;
+    font-weight: bold;
+    font-size: 15px;
+  }
 </style>
 </head>
 <body>
@@ -75,11 +87,14 @@
   </form>
 
   <div id="message" class="msg"></div>
+  <a id="waBtn" class="wa-btn" style="display:none;" target="_blank">📲 ابعت تأكيد الحجز على واتساب</a>
 </div>
 
 <script>
   // حط هنا رابط الـ Web App اللي طلع لك بعد الـ Deploy
   const API_URL = "https://script.google.com/macros/s/AKfycbx1Ko_fkk3kOFggAni63BKTsSuUlLo4pbVeiBiHzSHBpUXmbUB6qhzTm1Brg8ajHE9_-A/exec";
+  // رقم واتساب الملعب (بالكود الدولي بدون + أو أصفار زيادة)
+  const OWNER_WHATSAPP = "201041654704";
 
   const loadingEl = document.getElementById('loading');
   const formEl = document.getElementById('bookingForm');
@@ -117,15 +132,21 @@
     }
   }
 
+  const waBtn = document.getElementById('waBtn');
+
   formEl.addEventListener('submit', async (e) => {
     e.preventDefault();
     submitBtn.disabled = true;
     submitBtn.textContent = "بنأكد الحجز...";
 
+    const selectedSlotText = slotEl.options[slotEl.selectedIndex].textContent;
+    const customerName = document.getElementById('name').value;
+    const customerPhone = document.getElementById('phone').value;
+
     const payload = {
       slotId: slotEl.value,
-      name: document.getElementById('name').value,
-      phone: document.getElementById('phone').value
+      name: customerName,
+      phone: customerPhone
     };
 
     try {
@@ -136,8 +157,18 @@
       const data = await res.json();
 
       if (data.success) {
-        showMessage("تم تأكيد حجزك بنجاح! 🎉", "ok");
+        showMessage("تم تأكيد حجزك بنجاح! 🎉 دوس تحت عشان تأكد الحجز على واتساب.", "ok");
         formEl.style.display = 'none';
+
+        const waMessage = `مرحبًا، أنا ${customerName} 👋
+حجزت معاد النهاردة في ملعب البادل الساعة: ${selectedSlotText}
+رقم موبايلي: ${customerPhone}
+ده تأكيد للحجز.`;
+
+        waBtn.href = `https://wa.me/${OWNER_WHATSAPP}?text=${encodeURIComponent(waMessage)}`;
+        waBtn.style.display = 'block';
+        // فتح واتساب تلقائي في تاب جديد لتسهيل خطوة التأكيد على العميل
+        window.open(waBtn.href, '_blank');
       } else if (data.error === "SLOT_ALREADY_BOOKED") {
         showMessage("للأسف حد سبقك على المعاد ده لحظة ما بعتت. هنعيد تحميل المواعيد المتاحة.", "err");
         submitBtn.disabled = false;
