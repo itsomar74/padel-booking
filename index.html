@@ -7,7 +7,7 @@
 <style>
   body {
     font-family: 'Tahoma', sans-serif;
-    background: #0f172a;
+    background: #0a0e2a;
     color: #f1f5f9;
     display: flex;
     justify-content: center;
@@ -15,21 +15,36 @@
     margin: 0;
   }
   .card {
-    background: #1e293b;
+    background: #131a3d;
     border-radius: 16px;
     padding: 28px;
     max-width: 420px;
     width: 100%;
   }
-  h1 { font-size: 20px; margin-bottom: 4px; }
-  p.sub { color: #94a3b8; font-size: 14px; margin-top: 0; margin-bottom: 20px; }
+  .logo {
+    display: block;
+    max-width: 140px;
+    margin: 0 auto 12px;
+  }
+  h1 { font-size: 20px; margin-bottom: 4px; text-align: center; }
+  p.sub { color: #94a3b8; font-size: 14px; margin-top: 0; margin-bottom: 16px; text-align: center; }
+  .details {
+    background: #1c2450;
+    border: 1px solid #f7941d33;
+    border-radius: 12px;
+    padding: 14px;
+    font-size: 13.5px;
+    line-height: 1.9;
+    color: #e2e8f0;
+    margin-bottom: 20px;
+  }
   label { display: block; margin: 14px 0 6px; font-size: 14px; color: #cbd5e1; }
   select, input {
     width: 100%;
     padding: 12px;
     border-radius: 10px;
     border: 1px solid #334155;
-    background: #0f172a;
+    background: #0a0e2a;
     color: #f1f5f9;
     font-size: 15px;
     box-sizing: border-box;
@@ -40,8 +55,8 @@
     padding: 14px;
     border: none;
     border-radius: 10px;
-    background: #22c55e;
-    color: #052e16;
+    background: #f7941d;
+    color: #1a1400;
     font-weight: bold;
     font-size: 16px;
     cursor: pointer;
@@ -68,8 +83,16 @@
 <body>
 
 <div class="card">
-  <h1>🎾 احجز معادك المجاني</h1>
-  <p class="sub">اختار المعاد المتاح واملأ بياناتك، والحجز هيتأكد فورًا.</p>
+  <img src="logo.jpg" alt="Backyard Padel" class="logo">
+  <h1>🎾 احجز جلستك التجريبية المجانية</h1>
+  <p class="sub">Backyard – padel · Café · family</p>
+
+  <div class="details">
+    احجز جلستك التجريبية المجانية ومدتها 30 دقيقة 🎉<br>
+    كل معاد متاح لحجز واحد بس، فبادر بالحجز قبل ما حد يسبقك!<br>
+    الحجز بيتأكد حسب الأسبقية... يعني اللي يحجز الأول يكسب المعاد 😉<br>
+    💰 تفصيلة بسيطة: هتحتاج تدفع 50 جنيه بس كتأكيد للحجز، وهترجعلك تاني بمجرد ما توصل الملعب في معادك. الحكاية إنها مش هترجع لو للأسف اتأخرت أو مجتش، عشان كدا خلّي بالك من المعاد 🙏
+  </div>
 
   <div id="loading" class="loading">بنجيب المواعيد المتاحة...</div>
 
